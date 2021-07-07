@@ -1,0 +1,13 @@
+cabal-version:       >=1.10
+
+name:                gibbon-plugin
+version:             0.1.0.0
+build-type:          Simple
+
+library
+  exposed-modules:     Gibbon.Plugin
+  hs-source-dirs:      src
+  ghc-options:         -Wall -Wcompat -fdefer-typed-holes
+  build-depends:       base       == 4.15.*
+                     , ghc        == 9.0.*
+  default-language:    Haskell2010
