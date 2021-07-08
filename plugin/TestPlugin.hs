@@ -1,4 +1,4 @@
-module Gibbon.Plugin where
+module TestPlugin where
 
 import qualified GHC.Plugins as GHC
 
@@ -12,19 +12,19 @@ plugin = GHC.defaultPlugin { GHC.installCoreToDos = installGibbon
                            }
 
 installGibbon :: [GHC.CommandLineOption] -> [GHC.CoreToDo] -> GHC.CoreM [GHC.CoreToDo]
-installGibbon _ todos = return (gibbonCoreTodo : todos)
+installGibbon _ todos = return (testCoreTodo : todos)
 
-gibbonCoreTodo :: GHC.CoreToDo
-gibbonCoreTodo = GHC.CoreDoPluginPass "Gibbon" gibbon
+testCoreTodo :: GHC.CoreToDo
+testCoreTodo = GHC.CoreDoPluginPass "TEST" test
 
-gibbon :: GHC.ModGuts -> GHC.CoreM GHC.ModGuts
-gibbon mod_guts = do
-    GHC.liftIO $ print "[Gibbon] test..."
+test :: GHC.ModGuts -> GHC.CoreM GHC.ModGuts
+test mod_guts = do
+    GHC.liftIO $ print "[TEST] test..."
     hsc_env <- GHC.getHscEnv
-    eps <- GHC.liftIO $ GHC.hscEPS hsc_env
-    let imports = GHC.nameEnvElts (GHC.eps_PTE eps)
+    external_package_state <- GHC.liftIO $ GHC.hscEPS hsc_env
+    let all_ids = GHC.nameEnvElts (GHC.eps_PTE external_package_state)
     GHC.putMsg (GHC.ppr (map (\tyt -> case tyt of
                                         GHC.AnId i -> Just (i, GHC.maybeUnfoldingTemplate (GHC.realIdUnfolding i))
                                         _ -> Nothing)
-                             imports))
+                             all_ids))
     pure mod_guts

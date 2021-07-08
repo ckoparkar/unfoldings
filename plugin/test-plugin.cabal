@@ -1,12 +1,11 @@
 cabal-version:       >=1.10
 
-name:                gibbon-plugin
+name:                test-plugin
 version:             0.1.0.0
 build-type:          Simple
 
 library
-  exposed-modules:     Gibbon.Plugin
-  hs-source-dirs:      src
+  exposed-modules:     TestPlugin
   ghc-options:         -Wall -Wcompat -fdefer-typed-holes
   build-depends:       base       == 4.15.*
                      , ghc        == 9.0.*
