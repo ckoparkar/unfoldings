@@ -1,10 +1,9 @@
-module Main where
+module Main ( main ) where
 
 import TestLib
 
+foo :: Int -> (Int,Int)
+foo n = (canInline n, cannotInline n)
+
 main :: IO ()
-main = do
-    let y = canInline 10
-        z = cannotInline 10
-    print y
-    print z
+main = print (foo 10)

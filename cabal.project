@@ -1,1 +1,4 @@
 packages: plugin/ examples/ test-lib/
+
+package test-lib
+    ghc-options: -fno-worker-wrapper -fexpose-all-unfoldings

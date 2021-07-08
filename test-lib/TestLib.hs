@@ -1,8 +1,17 @@
 module TestLib where
 
+-- {-# NOINLINE cannotInline #-}
 cannotInline :: Int -> Int
-cannotInline x = x + 1
+cannotInline n =
+    if n == 0
+    then 0
+    else if n == 1
+    then 1
+    else
+        let x = cannotInline (n - 1)
+            y = cannotInline (n - 2)
+        in x + y
 
 {-# INLINE canInline #-}
 canInline :: Int -> Int
-canInline x = x + 1
+canInline n = cannotInline n
