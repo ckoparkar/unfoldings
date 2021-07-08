@@ -9,6 +9,7 @@ executable gibbon-examples
   build-depends:       base == 4.15.*
                      , test-plugin
                      , test-lib
+                     , unordered-containers
   default-language:    Haskell2010
   ghc-options:         -Wall -Wcompat
                        -fplugin=TestPlugin
